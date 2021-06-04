@@ -14,4 +14,11 @@ class Department extends Model
     // protected $keyType = 'string; //กรณี pk เป็น varchar
     // protected $incrementing = false; // pk ไม่ได้เป็น auto_increment
     // public $timestamps = false; // ตารางไม่มีคอลัมน์ created_at update_at ในตาราง
+
+    //one to many
+    public function officers(){
+        //return $this->hasMany(Officer::class, 'department_id', 'id'); //กรณี id ไม่ตรงกฎ
+        return $this->hasMany(Officer::class);
+       
+    }
 }

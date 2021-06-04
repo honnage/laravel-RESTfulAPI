@@ -20,12 +20,17 @@ class DepartmentController extends Controller
        //$data = Department::all();
        //$data = Department::where('name','like','%ช%')->get();
        //$data = Department::select('id','name')->orderBy('id','desc')->get();
-       $data = DB::select('select * from departments order by id desc');
-       $total = Department::count();
-       return response()->json([
-           'total' => $total,
-           'data' => $data
-        ],200);
+        //    $data = DB::select('select * from departments order by id desc');
+        //    $total = Department::count();
+        //    return response()->json([
+        //        'total' => $total,
+        //        'data' => $data
+        //     ],200);
+        $page_size = request()->query('page_size');
+        $pageSize = $page_size == null ? 2: $page_size;
+
+        $data = Department::paginate($pageSize);
+        return response()->json($data, 200);
     }
 
     public function search(){
