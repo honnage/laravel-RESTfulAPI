@@ -28,6 +28,27 @@ class DepartmentController extends Controller
         ],200);
     }
 
+    public function search(){
+   
+        $query = request()->query('name');
+        $keyword = '%'.$query.'%';
+        $data = Department::where('name','like',$keyword)->get();
+
+        if($data->isEmpty()){
+            return response()->json([
+                'error' => [
+                    'status_code' => 404,
+                    'message' => 'ไม่มีข้อมูล'
+                ]
+            ],400);
+        }
+
+        
+        return response()->json([
+            'data' => $data
+        ],200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
