@@ -27,9 +27,13 @@ class DepartmentController extends Controller
         //        'data' => $data
         //     ],200);
         $page_size = request()->query('page_size');
-        $pageSize = $page_size == null ? 2: $page_size;
+        $pageSize = $page_size == null ? 4: $page_size;
 
-        $data = Department::paginate($pageSize);
+        //$data = Department::paginate($pageSize);
+        //$data = Department::orderBy('id','desc')->with(['officers'])->get();
+        $data = Department::orderBy('id','desc')->with(['officers' => function($query){
+            $query->orderBy('salary','desc');
+        } ])->paginate($pageSize);
         return response()->json($data, 200);
     }
 
