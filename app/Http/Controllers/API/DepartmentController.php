@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
 class DepartmentController extends Controller
 {
@@ -72,9 +73,25 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, $id)
     {
-        //
+        if($id != $request->id){
+            return response()->json([
+                'error' => [
+                    'status_code' => 400,
+                    'message' => 'รหัสแผนกไม่ตรงกัน'
+                ]
+            ],400);
+        }
+       
+        $data = Department::find($id);
+        $data->name = $request->name;
+        $data->save();
+
+        return response()->json([
+            'message' => 'แก้ไขข้อมูลเรียบร้อย',
+            'data' => $data
+        ],200);
     }
 
     /**
