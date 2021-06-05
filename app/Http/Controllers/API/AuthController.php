@@ -99,5 +99,18 @@ class AuthController extends Controller
         ], 200);
     }
 
+     //get profile
+     public function me(Request $request) {
+        $user = $request->user();
+
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+                'fullname' => $user->officer->fullname,
+                'picture_url' => $user->officer->picture_url
+            ]
+        ], 200);
+    }
 
 }
