@@ -17,8 +17,7 @@ class Department extends Model
 
     //one to many
     public function officers(){
-        //return $this->hasMany(Officer::class, 'department_id', 'id'); //กรณี id ไม่ตรงกฎ
-        return $this->hasMany(Officer::class);
-       
+        //return $this->hasMany(Officer::class);
+        return $this->hasMany(Officer::class, 'department_id', 'id'); //กรณี id ไม่ตรงกฎ 
     }
 }
