@@ -11,6 +11,18 @@ class Officer extends Model
 
     protected $table = 'officers';
 
+    // เพิ่ม getter ไปยัง json
+    protected $appends = ['fullname','age'];
+
+    //getter (Accessor)
+    public function getFullnameAttribute(){
+        return $this->firstname.' '.$this->lastname;
+    }
+
+    public function getAgeAttribute(){
+        return now()->diffInYears($this->dob);
+    }
+
     //many to one
     public function department(){
         //return $this->belongsTo(Department::class);
