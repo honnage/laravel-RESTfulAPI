@@ -87,7 +87,17 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function logout(){
-        return 'logout';
+    public function logout(Request $request) {
+        //หาค่าของคอลัมน์ id ของ token ปัจจุบันที่กำลังล็อกอินอยู่
+        $id = $request->user()->currentAccessToken()->id;        
+
+        //ลบ record token user ในตารางฐานข้อมูล
+        $request->user()->tokens()->where('id', $id)->delete();    
+
+        return response()->json([
+            'message' => 'ออกจากระบบเรียบร้อยแล้ว'
+        ], 200);
     }
+
+
 }
