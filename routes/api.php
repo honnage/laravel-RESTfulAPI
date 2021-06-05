@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CompanyController;
@@ -40,3 +41,9 @@ Route::apiResource('/department', DepartmentController::class);
 Route::get('/search/department',[DepartmentController::class, 'search']);
 
 Route::apiResource('/officer', OfficerController::class);
+
+//Authentication
+Route::post('/auth/register',[AuthController::class, 'register']);
+Route::post('/auth/login',[AuthController::class, 'login']);
+Route::post('/auth/logout',[AuthController::class, 'logout'])->middleware('auth:sanctum');
+
